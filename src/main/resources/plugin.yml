@@ -1,0 +1,15 @@
+name: ${project.artifactId}
+main: io.github.lxgaming.teleportbow.TeleportBow
+version: ${project.version}
+author: LX_Gaming
+website: http://www.lxgaming.github.io
+commands:
+  teleportbow:
+    description: Display plugin information.
+    usage: /<command>
+    aliases: [tb]
+permissions:
+  bowteleport.give:
+    description: Gives players bow.
+  bowteleport.use:
+    description: Allows players to use bow.
