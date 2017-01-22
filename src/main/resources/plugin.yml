@@ -1,6 +1,6 @@
-name: ${project.artifactId}
+name: ${name}
 main: io.github.lxgaming.teleportbow.TeleportBow
-version: ${project.version}
+version: ${version}
 author: LX_Gaming
 website: http://www.lxgaming.github.io
 commands:
