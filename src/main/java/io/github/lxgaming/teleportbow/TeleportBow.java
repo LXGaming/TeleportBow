@@ -16,23 +16,24 @@
 
 package io.github.lxgaming.teleportbow;
 
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.lxgaming.teleportbow.commands.TeleportBowCommand;
-import io.github.lxgaming.teleportbow.events.EventManager;
+import io.github.lxgaming.teleportbow.configuration.Configuration;
+import io.github.lxgaming.teleportbow.events.TeleportBowEvent;
 
 public class TeleportBow extends JavaPlugin {
 	
-	public static TeleportBow instance;
+	private static TeleportBow instance;
+	private Configuration configuration;
 	
 	@Override
 	public void onEnable() {
 		instance = this;
-		this.getCommand("teleportbow").setExecutor(new TeleportBowCommand());
-		PluginManager pm = Bukkit.getPluginManager();
-		pm.registerEvents(new EventManager(), this);
+		configuration = new Configuration();
+		configuration.loadConfig();
+		getCommand("teleportbow").setExecutor(new TeleportBowCommand());
+		getServer().getPluginManager().registerEvents(new TeleportBowEvent(), this);
 		getLogger().info("TeleportBow has started!");
 	}
 	
@@ -40,5 +41,13 @@ public class TeleportBow extends JavaPlugin {
 	public void onDisable() {
 		instance = null;
 		getLogger().info("TeleportBow has stopped!");
+	}
+	
+	public static TeleportBow getInstance() {
+		return instance;
+	}
+	
+	public Configuration getConfiguration() {
+		return this.configuration;
 	}
 }

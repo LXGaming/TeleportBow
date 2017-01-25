@@ -1,0 +1,6 @@
+TeleportBow:
+  Sound: 'ENTITY_CHICKEN_EGG'
+  Bow:
+    Slot: 2
+  Arrow:
+    Slot: 9

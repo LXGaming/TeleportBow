@@ -4,7 +4,7 @@ apply plugin: "java"
 targetCompatibility = 1.8
 sourceCompatibility = 1.8
 
-version = "0.1.0"
+version = "1.0.0"
 group = "io.github.lxgaming.teleportbow"
 archivesBaseName = "TeleportBow"
 

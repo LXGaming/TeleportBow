@@ -26,6 +26,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
@@ -36,7 +37,9 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class EventManager implements Listener {
+import io.github.lxgaming.teleportbow.TeleportBow;
+
+public class TeleportBowEvent implements Listener {
 	
 	@EventHandler
 	public void onProjectileHit(ProjectileHitEvent event) {
@@ -68,29 +71,29 @@ public class EventManager implements Listener {
 		location.setPitch(player.getLocation().getPitch());
 		location.setYaw(player.getLocation().getYaw());
 		player.teleport(location);
-		player.playSound(player.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1.0f, 1.0f);
+		player.playSound(player.getLocation(), Sound.valueOf(TeleportBow.getInstance().getConfiguration().getConfig().getString("TeleportBow.Sound")), 1.0f, 1.0f);
 		arrow.remove();
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		if (event.getPlayer().hasPermission("bowteleport.give")) {
-			event.getPlayer().getInventory().setItem(2, giveBow());
-			event.getPlayer().getInventory().setItem(9, giveArrow());
+			event.getPlayer().getInventory().setItem(TeleportBow.getInstance().getConfiguration().getConfig().getInt("TeleportBow.Bow.Slot"), giveBow());
+			event.getPlayer().getInventory().setItem(TeleportBow.getInstance().getConfiguration().getConfig().getInt("TeleportBow.Arrow.Slot"), giveArrow());
 		}
 		return;
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		if (event.getPlayer().hasPermission("bowteleport.give")) {
-			event.getPlayer().getInventory().setItem(2, giveBow());
-			event.getPlayer().getInventory().setItem(9, giveArrow());
+			event.getPlayer().getInventory().setItem(TeleportBow.getInstance().getConfiguration().getConfig().getInt("TeleportBow.Bow.Slot"), giveBow());
+			event.getPlayer().getInventory().setItem(TeleportBow.getInstance().getConfiguration().getConfig().getInt("TeleportBow.Arrow.Slot"), giveArrow());
 		}
 		return;
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		if (event.getPlayer().hasPermission("bowteleport.give")) {
 			event.getPlayer().getInventory().remove(giveBow());
@@ -99,11 +102,11 @@ public class EventManager implements Listener {
 		return;
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerChangeWorld(PlayerChangedWorldEvent event) {
 		if (event.getPlayer().hasPermission("bowteleport.give")) {
-			event.getPlayer().getInventory().setItem(2, giveBow());
-			event.getPlayer().getInventory().setItem(9, giveArrow());
+			event.getPlayer().getInventory().setItem(TeleportBow.getInstance().getConfiguration().getConfig().getInt("TeleportBow.Bow.Slot"), giveBow());
+			event.getPlayer().getInventory().setItem(TeleportBow.getInstance().getConfiguration().getConfig().getInt("TeleportBow.Arrow.Slot"), giveArrow());
 		}
 		return;
 	}
@@ -111,7 +114,7 @@ public class EventManager implements Listener {
 	private ItemStack giveBow() {
 		ItemStack bow = new ItemStack(Material.BOW, 1);
 		ItemMeta bowMeta = bow.getItemMeta();
-		bowMeta.spigot().setUnbreakable(true);
+		bowMeta.setUnbreakable(true);
 		bowMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		bowMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 		bowMeta.addEnchant(Enchantment.ARROW_INFINITE, 10, true);
