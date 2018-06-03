@@ -16,24 +16,30 @@
 
 package io.github.lxgaming.teleportbow.commands;
 
+import io.github.lxgaming.teleportbow.TeleportBow;
+import io.github.lxgaming.teleportbow.util.Toolbox;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColors;
 
 import java.util.List;
 
-public class TeleportBowCommand extends AbstractCommand {
+public class ReloadCommand extends AbstractCommand {
     
-    public TeleportBowCommand() {
-        addAlias("teleportbow");
-        addChild(GiveCommand.class);
-        addChild(HelpCommand.class);
-        addChild(InfoCommand.class);
-        addChild(ReloadCommand.class);
+    public ReloadCommand() {
+        addAlias("reload");
+        setPermission("teleportbow.command.reload");
     }
     
     @Override
     public CommandResult execute(CommandSource commandSource, List<String> arguments) {
-        getHelp(commandSource).ifPresent(commandSource::sendMessage);
+        if (TeleportBow.getInstance().reloadConfiguration()) {
+            commandSource.sendMessage(Text.of(Toolbox.getTextPrefix(), TextColors.GREEN, "Configuration reloaded"));
+        } else {
+            commandSource.sendMessage(Text.of(Toolbox.getTextPrefix(), TextColors.RED, "An error occurred. Please check the console."));
+        }
+        
         return CommandResult.success();
     }
 }

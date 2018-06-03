@@ -16,24 +16,23 @@
 
 package io.github.lxgaming.teleportbow.commands;
 
+import io.github.lxgaming.teleportbow.util.Toolbox;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 
 import java.util.List;
 
-public class TeleportBowCommand extends AbstractCommand {
+public class InfoCommand extends AbstractCommand {
     
-    public TeleportBowCommand() {
-        addAlias("teleportbow");
-        addChild(GiveCommand.class);
-        addChild(HelpCommand.class);
-        addChild(InfoCommand.class);
-        addChild(ReloadCommand.class);
+    public InfoCommand() {
+        addAlias("info");
+        addAlias("information");
+        addAlias("version");
     }
     
     @Override
     public CommandResult execute(CommandSource commandSource, List<String> arguments) {
-        getHelp(commandSource).ifPresent(commandSource::sendMessage);
+        commandSource.sendMessage(Toolbox.getPluginInformation());
         return CommandResult.success();
     }
 }

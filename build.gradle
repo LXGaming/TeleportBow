@@ -6,7 +6,7 @@ targetCompatibility = 1.8
 
 group = "io.github.lxgaming"
 archivesBaseName = "TeleportBow"
-version = "1.0.0"
+version = "1.1.0"
 
 configurations {
     provided {
@@ -19,17 +19,14 @@ configurations {
 repositories {
     jcenter()
     maven {
-        name = "spigotmc"
-        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots"
-    }
-    maven {
-        name = "sonatype"
-        url = "https://oss.sonatype.org/content/repositories/snapshots"
+        name = "spongepowered"
+        url = "https://repo.spongepowered.org/maven"
     }
 }
 
 dependencies {
-    provided("org.spigotmc:spigot-api:1.11.2-R0.1-SNAPSHOT")
+    provided("org.spongepowered:spongeapi:7.1.0-SNAPSHOT")
+    annotationProcessor("org.spongepowered:spongeapi:7.1.0-SNAPSHOT")
 }
 
 jar {
@@ -43,11 +40,6 @@ jar {
 processResources {
     from("LICENSE")
     rename("LICENSE", "LICENSE-" + archivesBaseName)
-
-    from (sourceSets.main.resources.srcDirs) {
-        include("plugin.yml")
-        expand("name": archivesBaseName, "version": version)
-    }
 }
 
 task signJar {
