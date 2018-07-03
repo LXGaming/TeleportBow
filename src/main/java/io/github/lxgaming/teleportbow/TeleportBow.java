@@ -23,7 +23,6 @@ import io.github.lxgaming.teleportbow.configuration.Configuration;
 import io.github.lxgaming.teleportbow.listeners.TeleportBowListener;
 import io.github.lxgaming.teleportbow.managers.CommandManager;
 import io.github.lxgaming.teleportbow.util.Reference;
-import ninja.leaping.configurate.objectmapping.GuiceObjectMapperFactory;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.config.DefaultConfig;
@@ -59,9 +58,6 @@ public class TeleportBow {
     @Inject
     @DefaultConfig(sharedRoot = true)
     private Path path;
-    
-    @Inject
-    private GuiceObjectMapperFactory factory;
     
     private Configuration configuration;
     
@@ -112,10 +108,6 @@ public class TeleportBow {
     
     public Path getPath() {
         return path;
-    }
-    
-    public GuiceObjectMapperFactory getFactory() {
-        return factory;
     }
     
     public Configuration getConfiguration() {
