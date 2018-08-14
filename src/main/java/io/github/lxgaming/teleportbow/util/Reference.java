@@ -20,7 +20,7 @@ public class Reference {
     
     public static final String PLUGIN_ID = "teleportbow";
     public static final String PLUGIN_NAME = "TeleportBow";
-    public static final String PLUGIN_VERSION = "1.1.0";
+    public static final String PLUGIN_VERSION = "1.1.1";
     public static final String DESCRIPTION = "Teleport with a Bow!";
     public static final String AUTHORS = "LX_Gaming";
     public static final String SOURCE = "https://github.com/LXGaming/TeleportBow";
